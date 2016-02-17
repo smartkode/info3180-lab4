@@ -8,7 +8,7 @@ This file creates your application.
 
 from app import app
 import os
-from flask import session,flash,render_template, request, redirect, url_for
+from flask import session,flash,render_template, request, redirect, url_for, send_from_directory
 USERNAME="admin"
 PASSWORD="naseberry"
 SECRET_KEY="super secure key"
@@ -42,8 +42,14 @@ def filelisting():
     rootdir = os.getcwd()
     for subdir, dirs, files in os.walk(rootdir + "/app/static/uploads/"):
         names = files
-    return render_template('filelist.html', filelist=names)
+    display = ['jpg']
+    return render_template('filelist.html', filelist=names, display=display)
 
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    uploads = os.getcwd() + "/app/static/uploads"
+    return send_from_directory(uploads, filename)
 
 
 @app.route('/add', methods=['POST'])
