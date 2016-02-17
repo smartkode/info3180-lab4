@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+
+{% block js %}
+{% endblock %}
+
+
+{% block main %}
+<div>
+	{% for file in filelist %}
+	<li> {{ file }} </li>
+	{% endfor %}	
+</div>
+{% endblock %}
